@@ -1,5 +1,6 @@
 package desafio.api.mapper;
 
+import desafio.api.Utils.Utils;
 import desafio.api.controller.response.OrderResponse;
 import desafio.api.controller.response.ProductResponse;
 import desafio.api.controller.response.UserResponse;
@@ -10,7 +11,6 @@ import desafio.api.fileParser.ParserData;
 import desafio.api.mapper.model.OrderMapperObj;
 import desafio.api.mapper.model.ProductMapperObj;
 import desafio.api.mapper.model.UserMapperObj;
-import desafio.api.service.Utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -83,16 +83,11 @@ public class EntitysMapper {
     }
 
     public static OrderResponse toResponseOrderMapper(OrderMapperObj order) {
-        double total = order.getProducts().stream()
-                .map(ProductMapperObj::getValue)
-                .filter(Objects::nonNull)
-                .reduce(0.0, Double::sum);
-
         return OrderResponse.builder()
                 .order_id(order.getOrderId())
                 .date(order.getDate().toString())
                 .products(!order.getProducts().isEmpty() ? order.getProducts().stream().map(EntitysMapper::toResponseProductMapper).collect(Collectors.toList()) : new ArrayList<>())
-                .total(Utils.convertValue(total))
+                .total(0.0)
                 .build();
     }
 

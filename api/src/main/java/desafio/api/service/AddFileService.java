@@ -1,6 +1,7 @@
 package desafio.api.service;
 
 
+import desafio.api.Utils.Utils;
 import desafio.api.controller.response.OrderResponse;
 import desafio.api.controller.response.ParsedFilesResponse;
 import desafio.api.controller.response.UserResponse;

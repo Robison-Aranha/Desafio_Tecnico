@@ -1,4 +1,4 @@
-package desafio.api.service;
+package desafio.api.Utils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
