@@ -22,8 +22,8 @@ public class FilterItensService {
 
     public Page<OrderResponse> filter(Integer orderId, Integer startDate, Integer endDate, Pageable pageable) {
         Page<Order> orders;
-        LocalDate starDateConverted = startDate != null ? LocalDate.parse(String.valueOf(startDate), formatter) : LocalDate.of(1900, 1, 1);;
-        LocalDate endDateConverted = endDate != null ? LocalDate.parse(String.valueOf(endDate), formatter) : LocalDate.of(3000, 1, 1);;
+        LocalDate starDateConverted = startDate != null ? LocalDate.parse(String.valueOf(startDate), formatter) : LocalDate.of(1900, 1, 1);
+        LocalDate endDateConverted = endDate != null ? LocalDate.parse(String.valueOf(endDate), formatter) : LocalDate.of(3000, 1, 1);
         orders = searchService.findFilteredOrders(orderId, starDateConverted, endDateConverted, pageable);
         Page<OrderResponse> pageResponse = orders.map(EntitysMapper::toResponseOrder);
         return pageResponse;
