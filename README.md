@@ -51,8 +51,11 @@ Responsável por expor os endpoints da API REST. Recebe as requisições do clie
 
 **Contém a lógica de negócio da aplicação. Aqui é onde:**
 > O arquivo enviado é processado linha por linha.
+
 > Os dados são extraídos e convertidos em objetos intermediários (mappers).
+
 > As entidades são associadas corretamente e salvas no banco de dados.
+
 > As respostas são montadas para serem retornadas à camada de controle.
 
 A lógica foi cuidadosamente organizada para garantir que a persistência ocorra em ordem correta (usuário → pedido → produto) e para evitar duplicidades através de verificações com o banco.
@@ -76,8 +79,11 @@ Descrição: Realiza o upload de um arquivo .txt contendo dados de usuários, pe
 
 **Processo**:
 > Faz o parsing de cada linha do arquivo.
+
 > Cria entidades (User, Order, Product) e realiza os devidos vínculos entre elas.
+
 > Remove duplicatas.
+
 > Persiste os dados não duplicados e retorna os dados padronizados em JSON.
 
 **Resposta**: Objeto ParsedFilesResponse com os dados que foram convertidos (usuários → pedidos → produtos).
