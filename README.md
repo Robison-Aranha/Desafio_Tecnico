@@ -77,15 +77,6 @@ Descrição: Realiza o upload de um arquivo .txt contendo dados de usuários, pe
 **Parâmetro**:
 `file (MultipartFile)`: Arquivo estruturado com os dados.
 
-**Processo**:
-> Faz o parsing de cada linha do arquivo.
-
-> Cria entidades (User, Order, Product) e realiza os devidos vínculos entre elas.
-
-> Remove duplicatas.
-
-> Persiste os dados não duplicados e retorna os dados padronizados em JSON.
-
 **Resposta**: Objeto ParsedFilesResponse com os dados que foram convertidos (usuários → pedidos → produtos).
 
 ### GET `/file/order`
