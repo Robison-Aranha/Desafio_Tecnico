@@ -149,6 +149,7 @@ public class AddFileService {
                             orderResponse.setTotal(orderResponse.getTotal() + product.getValue());
                         }
                     });
+                    orderResponse.setTotal(Utils.convertValue(orderResponse.getTotal()));
                     parsedFilesResponses.getFilesParsed().add(userResponse);
                 }
             }

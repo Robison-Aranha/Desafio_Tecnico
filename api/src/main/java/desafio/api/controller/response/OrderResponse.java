@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-import static desafio.api.service.Utils.convertValue;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -21,5 +19,5 @@ public class OrderResponse {
     private String date;
 
     private List<ProductResponse> products;
-    
+
 }

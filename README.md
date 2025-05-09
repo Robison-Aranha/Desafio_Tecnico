@@ -22,7 +22,9 @@ O projeto foi modelado com base em três entidades principais: `User`, `Order` e
 
 As relações foram modeladas com `JPA (Jakarta Persistence API)` e mapeadas de forma bidirecional com anotações `@OneToMany`, `@ManyToOne` e `@JoinColumn`, garantindo a integridade entre as tabelas e permitindo uma navegação eficiente entre entidades.
 
-Além disso, a API realiza o upload de arquivos com dados textuais, que são processados e convertidos em objetos intermediários `(UserMapperObj, OrderMapperObj e ProductMapperObj)`. Esses objetos são utilizados para:
+Além disso, a API realiza o upload de arquivos com dados textuais, que são processados e convertidos em objetos intermediários `(UserMapperObj, OrderMapperObj e ProductMapperObj)`.
+
+**Esses objetos são utilizados para:**
 
 Eliminar duplicações por meio de filtragens personalizadas.
 
@@ -30,7 +32,7 @@ Criar as ligações corretas entre usuários, pedidos e produtos.
 
 Persistir os dados no banco de forma organizada, garantindo que as entidades respeitem as constraints de chave estrangeira (por exemplo, não salvar um produto sem que seu pedido e usuário estejam corretamente definidos e salvos anteriormente).
 
-Durante esse processo, uma lógica cuidadosa foi aplicada para garantir a ordem de persistência correta:
+**Durante esse processo, uma lógica cuidadosa foi aplicada para garantir a ordem de persistência correta:**
 
 Primeiro os usuários são salvos.
 
@@ -46,13 +48,11 @@ O projeto foi desenvolvido seguindo uma `arquitetura em camadas`, separando clar
 Responsável por expor os endpoints da API REST. Recebe as requisições do cliente, delega > a lógica para os serviços e retorna as respostas adequadas. Nessa camada, também ocorre > a validação de entrada e tratamento de exceções específicas via ResponseStatusException.
 
 ### Service (camada de negócios):
-Contém a lógica de negócio da aplicação. Aqui é onde:
+
+**Contém a lógica de negócio da aplicação. Aqui é onde:**
 O arquivo enviado é processado linha por linha.
-
 Os dados são extraídos e convertidos em objetos intermediários (mappers).
-
 As entidades são associadas corretamente e salvas no banco de dados.
-
 As respostas são montadas para serem retornadas à camada de controle.
 
 A lógica foi cuidadosamente organizada para garantir que a persistência ocorra em ordem correta (usuário → pedido → produto) e para evitar duplicidades através de verificações com o banco.
@@ -61,7 +61,38 @@ A lógica foi cuidadosamente organizada para garantir que a persistência ocorra
 A camada de mapeamento (EntitysMapper) transforma objetos intermediários (como ParserData, UserMapperObj, etc.) em entidades JPA ou objetos de resposta (Response). Essa separação mantém a lógica de conversão isolada e reutilizável.
 
 ### Domain (entidades)
-Contém os modelos que representam as tabelas do banco de dados. Cada classe (User, Order, Product) é anotada com JPA (@Entity, @Id, @OneToMany, etc.) e reflete diretamente a estrutura das tabelas, com relações entre si bem definidas.
+Contém os modelos que representam as tabelas do banco de dados. Cada classe (User, Order, Product) é anotada com JPA `(@Entity, @Id, @OneToMany, etc.)` e reflete diretamente a estrutura das tabelas, com relações entre si bem definidas.
 
 ### Repository (acesso a dados)
 Interfaces que estendem JpaRepository, fornecendo uma maneira simples e eficiente de interagir com o banco de dados sem a necessidade de escrever SQL manualmente. Foram utilizados repositórios para User, Order e Product.
+
+## endpoints da API
+
+### Post `/file`
+Descrição: Realiza o upload de um arquivo .txt contendo dados de usuários, pedidos e produtos.
+
+**Parâmetro**:
+`file (MultipartFile)`: Arquivo estruturado com os dados.
+
+**Processo**:
+Faz o parsing de cada linha do arquivo.
+Cria entidades (User, Order, Product) e realiza os devidos vínculos entre elas.
+Remove duplicatas.
+Persiste os dados não duplicados e retorna os dados padronizados em JSON.
+
+**Resposta**: Objeto ParsedFilesResponse com os dados que foram convertidos (usuários → pedidos → produtos).
+
+### GET `/file/order`
+**Descrição**: Retorna uma listagem paginada de pedidos, podendo filtrar por ID do pedido e/ou intervalo de datas.
+
+Parâmetros de consulta (query params):
+
+`order_id` (opcional): ID específico de um pedido.
+
+`startDate` (opcional): Data inicial (formato numérico, ex: 20240101).
+
+`endDate` (opcional): Data final (formato numérico, ex: 20241231).
+
+`page`, `size`, `sort`: Padrão Spring Data Pageable.
+
+**Resposta**: Página `(Page<OrderResponse>)` contendo os pedidos filtrados.
