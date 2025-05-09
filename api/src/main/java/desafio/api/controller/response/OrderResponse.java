@@ -1,0 +1,29 @@
+package desafio.api.controller.response;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+import static desafio.api.service.Utils.convertValue;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class OrderResponse {
+
+    private Integer order_id;
+
+    private Double total;
+
+    private String date;
+
+    private List<ProductResponse> products;
+
+    public void setTotal(Double value) {
+        this.total = convertValue(value);
+    }
+
+}
