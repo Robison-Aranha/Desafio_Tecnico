@@ -21,9 +21,5 @@ public class OrderResponse {
     private String date;
 
     private List<ProductResponse> products;
-
-    public void setTotal(Double value) {
-        this.total = convertValue(value);
-    }
-
+    
 }
