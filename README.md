@@ -26,19 +26,19 @@ Além disso, a API realiza o upload de arquivos com dados textuais, que são pro
 
 **Esses objetos são utilizados para:**
 
-Eliminar duplicações por meio de filtragens personalizadas.
+> Eliminar duplicações por meio de filtragens personalizadas.
 
-Criar as ligações corretas entre usuários, pedidos e produtos.
+> Criar as ligações corretas entre usuários, pedidos e produtos.
 
-Persistir os dados no banco de forma organizada, garantindo que as entidades respeitem as constraints de chave estrangeira (por exemplo, não salvar um produto sem que seu pedido e usuário estejam corretamente definidos e salvos anteriormente).
+> Persistir os dados no banco de forma organizada, garantindo que as entidades respeitem as constraints de chave estrangeira (por exemplo, não salvar um produto sem que seu pedido e usuário estejam corretamente definidos e salvos anteriormente).
 
 **Durante esse processo, uma lógica cuidadosa foi aplicada para garantir a ordem de persistência correta:**
 
-Primeiro os usuários são salvos.
+> Primeiro os usuários são salvos.
 
-Em seguida, os pedidos, já vinculados aos usuários persistidos.
+> Em seguida, os pedidos, já vinculados aos usuários persistidos.
 
-Por fim, os produtos, com os pedidos já salvos vinculados.
+> Por fim, os produtos, com os pedidos já salvos vinculados.
 
 ## Arquitetura
 
@@ -69,7 +69,7 @@ Contém os modelos que representam as tabelas do banco de dados. Cada classe (Us
 ### Repository (acesso a dados)
 Interfaces que estendem JpaRepository, fornecendo uma maneira simples e eficiente de interagir com o banco de dados sem a necessidade de escrever SQL manualmente. Foram utilizados repositórios para User, Order e Product.
 
-## endpoints da API
+## Endpoints da API
 
 ### Post `/file`
 Descrição: Realiza o upload de um arquivo .txt contendo dados de usuários, pedidos e produtos.
