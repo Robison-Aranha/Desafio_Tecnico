@@ -72,7 +72,7 @@ Interfaces que estendem JpaRepository, fornecendo uma maneira simples e eficient
 ## Endpoints da API
 
 ### Post `/file`
-Descrição: Realiza o upload de um arquivo .txt contendo dados de usuários, pedidos e produtos.
+**Descrição**: Realiza o upload de um arquivo .txt contendo dados de usuários, pedidos e produtos.
 
 **Parâmetro**:
 `file (MultipartFile)`: Arquivo estruturado com os dados.
@@ -82,7 +82,7 @@ Descrição: Realiza o upload de um arquivo .txt contendo dados de usuários, pe
 ### GET `/file/order`
 **Descrição**: Retorna uma listagem paginada de pedidos, podendo filtrar por ID do pedido e/ou intervalo de datas.
 
-**Parâmetros de consulta (query params):**
+**Parâmetros de consulta (query params)**:
 
 `order_id` (opcional): ID específico de um pedido.
 
